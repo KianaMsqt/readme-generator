@@ -29,7 +29,10 @@ ${description}
 * [Questions](#questions)
 
 ## Installation
+To install dependencies run following command:
+\`\`\`
 ${installation}
+\`\`\`
 
 ## Usage
 ${usage}
