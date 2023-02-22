@@ -6,6 +6,11 @@ const generateMarkdown = require("./utils/generateMarkdown");
 // array of questions for user
 const questions = [
     {
+      type: 'input',
+      name: 'fileName',
+      message: "What should be the file name?",
+    },
+    {
         type: 'input',
         name: 'title',
         message: "What is the title of your project?",
@@ -56,12 +61,26 @@ const questions = [
 
 // function to write README file
 function writeToFile(fileName, data) {
+  // Call the generateMarkdown function with the data object to generate the markdown content
+  const content = generateMarkdown(data);
+  
+  // Write the markdown content to a file with the provided file name
+  fs.writeFile(fileName, content, (err) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log(`README file created at ${fileName}`);
+    }
+  });
 }
 
 // function to initialize program
 function init() {
+    // Ask the user the questions defined in the questions array
     inquirer.prompt(questions).then((answers) => {
-        console.log(answers);
+      // Create the file name
+      const fileName = `${answers.fileName}.md`;
+      writeToFile(fileName, answers);
     });
 }
 
