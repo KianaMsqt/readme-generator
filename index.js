@@ -61,12 +61,14 @@ const questions = [
 
 // function to write README file
 function writeToFile(fileName, data) {
-  console.log(fileName);
-  fs.writeFile(fileName, data, (err) => {
+  // Call the generateMarkdown function with the data object to generate the markdown content
+  const content = generateMarkdown(data);
+  
+  // Write the markdown content to a file with the provided file name
+  fs.writeFile(fileName, content, (err) => {
     if (err) {
       console.error(err);
     } else {
-      generateMarkdown( data );
       console.log(`README file created at ${fileName}`);
     }
   });
@@ -74,12 +76,13 @@ function writeToFile(fileName, data) {
 
 // function to initialize program
 function init() {
+    // Ask the user the questions defined in the questions array
     inquirer.prompt(questions).then((answers) => {
+      // Create the file name
       const fileName = `${answers.fileName}.md`;
-      writeToFile( fileName, answers );
+      writeToFile(fileName, answers);
     });
 }
 
 // function call to initialize program
 init();
-
